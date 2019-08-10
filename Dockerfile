@@ -20,7 +20,7 @@ RUN mkdir /opt/minecraft/ \
  && DOWNLOAD_URL=https://papermc.io/api/v1/paper/${PAPER_VERSION}/${PAPER_BUILD}/download \
  && curl -o server.jar ${DOWNLOAD_URL} \
  && mkdir plugins world logs \
- && ln -s $(pwd)/{plugins,logs,world}/ /home/container/ \
+ && ln -s $(pwd)/{plugins,logs,world}/ /home/container/
 
 USER container
 ENV  USER=container HOME=/home/container
