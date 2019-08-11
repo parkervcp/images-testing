@@ -18,7 +18,10 @@ RUN mkdir /opt/minecraft/ \
  && PAPER_VERSION=`curl -s https://papermc.io/api/v1/paper | jq -r '.versions' | jq -r '.[0]'` \
  && PAPER_BUILD=`curl -s https://papermc.io/api/v1/paper/${PAPER_VERSION} | jq -r '.builds.latest'` \
  && DOWNLOAD_URL=https://papermc.io/api/v1/paper/${PAPER_VERSION}/${PAPER_BUILD}/download \
- && curl -o server.jar ${DOWNLOAD_URL} \
+ && curl -o paper.jar ${DOWNLOAD_URL} \
+ && MANIFEST_URL=$(curl https://launchermeta.mojang.com/mc/game/version_manifest.json | jq .versions | jq -r '.[] | select(.id == "'$PAPER_VERSION'") | .url') \
+ && DOWNLOAD_URL=`curl $MANIFEST_URL | jq .downloads.server | jq -r '. | .url'` \
+ && curl -o server.jar} $DOWNLOAD_URL \
  && mkdir plugins world logs \
  && ln -s $(pwd)/{plugins,logs,world}/ /home/container/
 
