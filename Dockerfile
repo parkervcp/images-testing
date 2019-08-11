@@ -19,8 +19,8 @@ RUN mkdir /opt/minecraft/ \
  && PAPER_BUILD=`curl -s https://papermc.io/api/v1/paper/${PAPER_VERSION} | jq -r '.builds.latest'` \
  && DOWNLOAD_URL=https://papermc.io/api/v1/paper/${PAPER_VERSION}/${PAPER_BUILD}/download \
  && curl -o server.jar ${DOWNLOAD_URL} \
- && mkdir {plugins,logs,world,cache} \
- && ln -s $(pwd)/{plugins,logs,world,cache}/ /home/container/ \
+ && mkdir /home/container/{plugins,logs,world,cache} \
+ && ln -s /home/container/{plugins,logs,world,cache}/ /opt/minecraft/ \
  && chown -R container: /opt/minecraft
 
 USER container
