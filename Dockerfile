@@ -25,7 +25,7 @@ RUN mkdir /opt/minecraft/ \
  && curl -o cache/mojang_1.14.4.jar $DOWNLOAD_URL \
  && mkdir plugins world logs \
  && ln -s $(pwd)/{plugins,logs,world}/ /home/container/ \
- && chown -r container: /opt/minecraft
+ && chown -R container: /opt/minecraft
 
 USER container
 ENV  USER=container HOME=/home/container
