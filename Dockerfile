@@ -19,12 +19,8 @@ RUN mkdir /opt/minecraft/ \
  && PAPER_BUILD=`curl -s https://papermc.io/api/v1/paper/${PAPER_VERSION} | jq -r '.builds.latest'` \
  && DOWNLOAD_URL=https://papermc.io/api/v1/paper/${PAPER_VERSION}/${PAPER_BUILD}/download \
  && curl -o server.jar ${DOWNLOAD_URL} \
- && mkdir cache/ \
- && MANIFEST_URL=$(curl https://launchermeta.mojang.com/mc/game/version_manifest.json | jq .versions | jq -r '.[] | select(.id == "'$PAPER_VERSION'") | .url') \
- && DOWNLOAD_URL=`curl $MANIFEST_URL | jq .downloads.server | jq -r '. | .url'` \
- && curl -o cache/mojang_1.14.4.jar $DOWNLOAD_URL \
- && mkdir plugins world logs \
- && ln -s $(pwd)/{plugins,logs,world}/ /home/container/ \
+ && mkdir {plugins,logs,world,cache} \
+ && ln -s $(pwd)/{plugins,logs,world,cache}/ /home/container/ \
  && chown -R container: /opt/minecraft
 
 USER container
