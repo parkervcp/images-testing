@@ -50,7 +50,7 @@ var poll = function( ) {
         process.stdin.on('data', function (text) {
             ws.send(createPacket(text));
         });
-        process.stdin.send("status")
+        process.stdin.write("status")
     });
 
     ws.on("message", function(data, flags) {
