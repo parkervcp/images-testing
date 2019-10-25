@@ -43,6 +43,7 @@ var poll = function( ) {
     var ws = new WebSocket("ws://" + serverHostname + ":" + serverPort + "/" + serverPassword);
 
     ws.on("open", function open() {
+        process.stdin.write("status")
         waiting = false;
         process.stdin.resume();
         process.stdin.setEncoding("utf8");
@@ -50,7 +51,6 @@ var poll = function( ) {
         process.stdin.on('data', function (text) {
             ws.send(createPacket(text));
         });
-        process.stdin.write("status")
     });
 
     ws.on("message", function(data, flags) {
