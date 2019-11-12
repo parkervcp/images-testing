@@ -43,11 +43,14 @@ var poll = function( ) {
     var ws = new WebSocket("ws://" + serverHostname + ":" + serverPort + "/" + serverPassword);
 
     ws.on("open", function open() {
-        process.stdin.write("status")
         waiting = false;
         process.stdin.resume();
         process.stdin.setEncoding("utf8");
         var util = require("util");
+
+        // Hack to fix broken console output
+        ws.send(createPacket('status'));
+
         process.stdin.on('data', function (text) {
             ws.send(createPacket(text));
         });
