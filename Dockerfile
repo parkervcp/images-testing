@@ -9,7 +9,8 @@ LABEL author="Terrahost" maintainer="opensource@terrahost.cloud"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt install -y --no-install-recommends gnupg2 wget curl software-properties-common libntlm0 winbind xvfb xauth python3
+RUN apt update \
+ && apt install -y --no-install-recommends libntlm0 winbind xvfb xauth python3
 
 # Install winehq-stable and with recommends
 RUN wget -qO - https://dl.winehq.org/wine-builds/winehq.key | apt-key add -
