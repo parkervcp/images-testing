@@ -3,11 +3,9 @@
 # Environment: Debian 19 Buster + Wine 5.0
 # Minimum Panel Version: 0.7.15
 # ----------------------------------
-FROM debian:buster-slim
+FROM quay.io/parkervcp/pterodactyl-images:base_debian
 
-LABEL author="Terrahost" maintainer="opensource@terrahost.cloud"
-
-ENV DEBIAN_FRONTEND noninteractive
+LABEL author="Michael Parker" maintainer="parker@pterodactyl.io"
 
 RUN apt update \
  && apt install -y --no-install-recommends libntlm0 winbind xvfb xauth python3
