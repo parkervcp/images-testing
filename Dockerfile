@@ -7,16 +7,18 @@ FROM quay.io/parkervcp/pterodactyl-images:base_debian
 
 LABEL author="Michael Parker" maintainer="parker@pterodactyl.io"
 
-RUN apt update \
+## install required packages
+RUN dpkg --add-architecture i386 \
+ && apt update -y \
  && apt install -y --no-install-recommends libntlm0 winbind xvfb xauth python3
 
 # Install winehq-stable and with recommends
-RUN wget -qO - https://dl.winehq.org/wine-builds/winehq.key | apt-key add -
-RUN apt-add-repository https://dl.winehq.org/wine-builds/debian/
-RUN wget -O- -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/Release.key | apt-key add -    
-RUN echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10 ./" | tee /etc/apt/sources.list.d/wine-obs.list
-RUN apt-get update
-RUN apt install -y --install-recommends winehq-stable
+RUN wget -qO - https://dl.winehq.org/wine-builds/winehq.key | apt-key add - \
+ && apt-add-repository https://dl.winehq.org/wine-builds/debian/ \
+ && wget -O- -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/Release.key | apt-key add - \
+ && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
+ && apt-get update \
+ && apt install -y --install-recommends winehq-stable
 
 # Set up Winetricks
 RUN	wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
