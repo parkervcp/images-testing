@@ -22,10 +22,7 @@ RUN wget -qO - https://dl.winehq.org/wine-builds/winehq.key | apt-key add - \
 
 # Set up Winetricks
 RUN	wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
- && chmod +x /usr/sbin/winetricks \
- && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
- && locale-gen \
- && useradd -m -d /home/container container
+ && chmod +x /usr/sbin/winetricks
 
 ENV HOME=/home/container
 ENV WINEPREFIX=/home/container/.wine
