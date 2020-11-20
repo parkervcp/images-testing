@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ## add container user
 RUN useradd -m -d /home/container -s /bin/bash container
 
-RUN ln -s /home/container/ /nonexistent/
+RUN ln -s /home/container/ /nonexistent
 
 ## update base packages
 RUN apt update \
